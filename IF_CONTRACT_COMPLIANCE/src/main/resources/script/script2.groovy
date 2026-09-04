@@ -35,6 +35,40 @@ DECISION RULES:
 7. If required information is missing, compliant must be false.
 8. If human review is explicitly required by a policy, recommendation must
    be HUMAN_REVIEW.
+1. Evaluate the purchase order against every supplied procurement policy.
+
+2. Distinguish between:
+   - COMPLIANCE VIOLATIONS: The PO fails to satisfy a business policy.
+   - APPROVAL REQUIREMENTS: The PO is compliant but requires human approval
+     because a governance or approval threshold has been reached.
+
+3. If a compliance policy is violated:
+   - compliant must be false.
+   - Add the policy to violations.
+   - Explain the violation.
+
+4. If an approval policy requires human review but does NOT represent a
+   compliance violation:
+   - compliant may remain true.
+   - Do NOT add the approval requirement to violations.
+   - Set approvalRequired to true.
+   - Explain the approval requirement in approvalReason.
+   - recommendation must be HUMAN_REVIEW.
+
+5. If no compliance policies are violated and no approval is required:
+   - compliant must be true.
+   - approvalRequired must be false.
+   - recommendation must be PROCESS_PO.
+
+6. If required information is missing:
+   - compliant must be false.
+   - Add the missing field to missingInformation.
+   - recommendation must be HUMAN_REVIEW.
+
+7. Never invent missing information.
+
+8. Evaluate ONLY against the supplied procurement policies.
+
 9. Return ONLY valid JSON.
 '''
 
@@ -57,6 +91,8 @@ Return exactly this JSON structure:
   "compliant": true,
   "riskLevel": "LOW",
   "violations": [],
+  "approvalRequired": false,
+  "approvalReason": "",
   "missingInformation": [],
   "recommendation": "PROCESS_PO"
 }
