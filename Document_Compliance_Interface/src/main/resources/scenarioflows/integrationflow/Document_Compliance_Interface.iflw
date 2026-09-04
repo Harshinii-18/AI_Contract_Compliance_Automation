@@ -74,7 +74,15 @@
                 </ifl:property>
             </bpmn2:extensionElements>
         </bpmn2:participant>
-        <bpmn2:participant id="Participant_2" ifl:type="EndpointRecevier" name="Receiver">
+        <bpmn2:participant id="Participant_2" ifl:type="EndpointRecevier" name="Document_Processor">
+            <bpmn2:extensionElements>
+                <ifl:property>
+                    <key>ifl:type</key>
+                    <value>EndpointRecevier</value>
+                </ifl:property>
+            </bpmn2:extensionElements>
+        </bpmn2:participant>
+        <bpmn2:participant id="Participant_767" ifl:type="EndpointRecevier" name="Mail_Receiver">
             <bpmn2:extensionElements>
                 <ifl:property>
                     <key>ifl:type</key>
@@ -85,47 +93,59 @@
         <bpmn2:participant id="Participant_Process_1" ifl:type="IntegrationProcess" name="Integration Process" processRef="Process_1">
             <bpmn2:extensionElements/>
         </bpmn2:participant>
-        <bpmn2:messageFlow id="MessageFlow_7" name="ProcessDirect" sourceRef="EndEvent_2" targetRef="Participant_2">
+        <bpmn2:messageFlow id="MessageFlow_771" name="JMS" sourceRef="EndEvent_2" targetRef="Participant_2">
             <bpmn2:extensionElements>
                 <ifl:property>
                     <key>ComponentType</key>
-                    <value>ProcessDirect</value>
+                    <value>JMS</value>
                 </ifl:property>
                 <ifl:property>
                     <key>Description</key>
                     <value/>
                 </ifl:property>
                 <ifl:property>
-                    <key>address</key>
-                    <value>/DocumentProcessor</value>
-                </ifl:property>
-                <ifl:property>
                     <key>ComponentNS</key>
                     <value>sap</value>
                 </ifl:property>
                 <ifl:property>
-                    <key>Vendor</key>
-                    <value>SAP</value>
+                    <key>componentVersion</key>
+                    <value>1.6</value>
                 </ifl:property>
                 <ifl:property>
-                    <key>componentVersion</key>
-                    <value>1.1</value>
+                    <key>UseMessageCompression</key>
+                    <value>1</value>
                 </ifl:property>
                 <ifl:property>
                     <key>Name</key>
-                    <value>ProcessDirect</value>
+                    <value>JMS</value>
                 </ifl:property>
                 <ifl:property>
                     <key>TransportProtocolVersion</key>
-                    <value>1.1.2</value>
+                    <value>1.6.3</value>
                 </ifl:property>
                 <ifl:property>
                     <key>ComponentSWCVName</key>
                     <value>external</value>
                 </ifl:property>
                 <ifl:property>
+                    <key>QueueName_outbound</key>
+                    <value>DocumentProcessor</value>
+                </ifl:property>
+                <ifl:property>
                     <key>system</key>
-                    <value>Receiver</value>
+                    <value>Document_Processor</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>EncryptMessage</key>
+                    <value>1</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>RetentionThresholdAlerting</key>
+                    <value>2</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>ExpirationPeriod</key>
+                    <value>7</value>
                 </ifl:property>
                 <ifl:property>
                     <key>TransportProtocol</key>
@@ -133,7 +153,11 @@
                 </ifl:property>
                 <ifl:property>
                     <key>cmdVariantUri</key>
-                    <value>ctype::AdapterVariant/cname::ProcessDirect/vendor::SAP/tp::Not Applicable/mp::Not Applicable/direction::Receiver/version::1.1.1</value>
+                    <value>ctype::AdapterVariant/cname::sap:JMS/tp::Not Applicable/mp::Not Applicable/direction::Receiver/version::1.6.3</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>TransferExchangeProperties</key>
+                    <value>0</value>
                 </ifl:property>
                 <ifl:property>
                     <key>MessageProtocol</key>
@@ -141,15 +165,206 @@
                 </ifl:property>
                 <ifl:property>
                     <key>MessageProtocolVersion</key>
-                    <value>1.1.2</value>
+                    <value>1.6.3</value>
                 </ifl:property>
                 <ifl:property>
                     <key>ComponentSWCVId</key>
-                    <value>1.1.2</value>
+                    <value>1.6.3</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>AccessType</key>
+                    <value>Non-Exclusive</value>
                 </ifl:property>
                 <ifl:property>
                     <key>direction</key>
                     <value>Receiver</value>
+                </ifl:property>
+            </bpmn2:extensionElements>
+        </bpmn2:messageFlow>
+        <bpmn2:messageFlow id="MessageFlow_768" name="Mail" sourceRef="ServiceTask_766" targetRef="Participant_767">
+            <bpmn2:extensionElements>
+                <ifl:property>
+                    <key>server</key>
+                    <value>smtp.gmail.com</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>Description</key>
+                    <value/>
+                </ifl:property>
+                <ifl:property>
+                    <key>bcc</key>
+                    <value/>
+                </ifl:property>
+                <ifl:property>
+                    <key>attachments</key>
+                    <value/>
+                </ifl:property>
+                <ifl:property>
+                    <key>auth</key>
+                    <value>loginPlain</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>subject</key>
+                    <value>AI_Contact_Compliance Error Notification</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>encrypt.smime.aes.keysize</key>
+                    <value>128</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>ComponentNS</key>
+                    <value>com.sap.it.ide.mail.ui.namespace2</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>keep_attachments</key>
+                    <value>0</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>body</key>
+                    <value>Hi,
+We have encountered the following error in AI_Contract_Compliance_Automation.
+
+Exception Message: ${header.ExceptionMessage}</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>ssl</key>
+                    <value>starttls_mandatory</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>timeout</key>
+                    <value>30000</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>Name</key>
+                    <value>Mail</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>TransportProtocolVersion</key>
+                    <value>1.0</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>ComponentSWCVName</key>
+                    <value>com.sap.it.ide.mail.ui.archive2</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>proxyPort</key>
+                    <value>8080</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>encrypt.smime.des.keysize</key>
+                    <value>128</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>content_type</key>
+                    <value>text/plain</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>locationId</key>
+                    <value/>
+                </ifl:property>
+                <ifl:property>
+                    <key>encrypt.smime.algorithm</key>
+                    <value>aes</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>signature.smime.table</key>
+                    <value/>
+                </ifl:property>
+                <ifl:property>
+                    <key>from</key>
+                    <value>harshmindss89@gmail.com</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>MessageProtocol</key>
+                    <value>None</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>ComponentSWCVId</key>
+                    <value>com.sap.it.ide.mail.ui.archive2</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>direction</key>
+                    <value>Receiver</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>cc</key>
+                    <value/>
+                </ifl:property>
+                <ifl:property>
+                    <key>attachmentTransferEncoding</key>
+                    <value>auto</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>encrypt.smime.aes.gcm.keysize</key>
+                    <value>128</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>ComponentType</key>
+                    <value>Mail</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>proxyProtocol</key>
+                    <value>socks5</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>content_encoding</key>
+                    <value>UTF-8</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>proxyType</key>
+                    <value>none</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>proxyAlias</key>
+                    <value/>
+                </ifl:property>
+                <ifl:property>
+                    <key>componentVersion</key>
+                    <value>1.13</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>proxyHost</key>
+                    <value/>
+                </ifl:property>
+                <ifl:property>
+                    <key>system</key>
+                    <value>Mail_Receiver</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>signature.smime.clearText</key>
+                    <value>1</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>encrypt.type</key>
+                    <value>none</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>TransportProtocol</key>
+                    <value>SMTP</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>tokenCredential</key>
+                    <value/>
+                </ifl:property>
+                <ifl:property>
+                    <key>to</key>
+                    <value>harshiniishankar18@gmail.com</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>encrypt.smime.keys</key>
+                    <value/>
+                </ifl:property>
+                <ifl:property>
+                    <key>cmdVariantUri</key>
+                    <value>ctype::AdapterVariant/cname::sap:Mail/tp::SMTP/mp::None/direction::Receiver/version::1.13.0</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>user</key>
+                    <value>gmailcredentials</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>MessageProtocolVersion</key>
+                    <value>1.0</value>
                 </ifl:property>
             </bpmn2:extensionElements>
         </bpmn2:messageFlow>
@@ -257,6 +472,98 @@
                 <value>Not Required</value>
             </ifl:property>
         </bpmn2:extensionElements>
+        <bpmn2:subProcess id="SubProcess_8" name="Exception Subprocess">
+            <bpmn2:extensionElements>
+                <ifl:property>
+                    <key>componentVersion</key>
+                    <value>1.1</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>activityType</key>
+                    <value>ErrorEventSubProcessTemplate</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>cmdVariantUri</key>
+                    <value>ctype::FlowstepVariant/cname::ErrorEventSubProcessTemplate/version::1.1.0</value>
+                </ifl:property>
+            </bpmn2:extensionElements>
+            <bpmn2:endEvent id="EndEvent_12" name="Error End">
+                <bpmn2:incoming>SequenceFlow_770</bpmn2:incoming>
+                <bpmn2:errorEventDefinition>
+                    <bpmn2:extensionElements>
+                        <ifl:property>
+                            <key>cmdVariantUri</key>
+                            <value>ctype::FlowstepVariant/cname::ErrorEndEvent</value>
+                        </ifl:property>
+                        <ifl:property>
+                            <key>activityType</key>
+                            <value>EndErrorEvent</value>
+                        </ifl:property>
+                    </bpmn2:extensionElements>
+                </bpmn2:errorEventDefinition>
+            </bpmn2:endEvent>
+            <bpmn2:serviceTask id="ServiceTask_766" name="Send">
+                <bpmn2:extensionElements>
+                    <ifl:property>
+                        <key>componentVersion</key>
+                        <value>1.0</value>
+                    </ifl:property>
+                    <ifl:property>
+                        <key>activityType</key>
+                        <value>Send</value>
+                    </ifl:property>
+                    <ifl:property>
+                        <key>cmdVariantUri</key>
+                        <value>ctype::FlowstepVariant/cname::Send/version::1.0.4</value>
+                    </ifl:property>
+                </bpmn2:extensionElements>
+                <bpmn2:incoming>SequenceFlow_769</bpmn2:incoming>
+                <bpmn2:outgoing>SequenceFlow_770</bpmn2:outgoing>
+            </bpmn2:serviceTask>
+            <bpmn2:callActivity id="CallActivity_14" name="Set Email Header">
+                <bpmn2:extensionElements>
+                    <ifl:property>
+                        <key>bodyType</key>
+                        <value>constant</value>
+                    </ifl:property>
+                    <ifl:property>
+                        <key>propertyTable</key>
+                        <value/>
+                    </ifl:property>
+                    <ifl:property>
+                        <key>headerTable</key>
+                        <value>&lt;row&gt;&lt;cell id='Action'&gt;Create&lt;/cell&gt;&lt;cell id='Type'&gt;expression&lt;/cell&gt;&lt;cell id='Value'&gt;${exception.message}&lt;/cell&gt;&lt;cell id='Default'&gt;&lt;/cell&gt;&lt;cell id='Name'&gt;ExceptionMessage&lt;/cell&gt;&lt;cell id='Datatype'&gt;&lt;/cell&gt;&lt;/row&gt;</value>
+                    </ifl:property>
+                    <ifl:property>
+                        <key>wrapContent</key>
+                        <value/>
+                    </ifl:property>
+                    <ifl:property>
+                        <key>componentVersion</key>
+                        <value>1.6</value>
+                    </ifl:property>
+                    <ifl:property>
+                        <key>activityType</key>
+                        <value>Enricher</value>
+                    </ifl:property>
+                    <ifl:property>
+                        <key>cmdVariantUri</key>
+                        <value>ctype::FlowstepVariant/cname::Enricher/version::1.6.5</value>
+                    </ifl:property>
+                </bpmn2:extensionElements>
+                <bpmn2:incoming>SequenceFlow_13</bpmn2:incoming>
+                <bpmn2:outgoing>SequenceFlow_769</bpmn2:outgoing>
+            </bpmn2:callActivity>
+            <bpmn2:startEvent id="StartEvent_9" name="Error Start">
+                <bpmn2:outgoing>SequenceFlow_13</bpmn2:outgoing>
+                <bpmn2:errorEventDefinition>
+                    <bpmn2:extensionElements/>
+                </bpmn2:errorEventDefinition>
+            </bpmn2:startEvent>
+            <bpmn2:sequenceFlow id="SequenceFlow_770" sourceRef="ServiceTask_766" targetRef="EndEvent_12"/>
+            <bpmn2:sequenceFlow id="SequenceFlow_769" sourceRef="CallActivity_14" targetRef="ServiceTask_766"/>
+            <bpmn2:sequenceFlow id="SequenceFlow_13" sourceRef="StartEvent_9" targetRef="CallActivity_14"/>
+        </bpmn2:subProcess>
         <bpmn2:endEvent id="EndEvent_2" name="End">
             <bpmn2:extensionElements>
                 <ifl:property>
@@ -324,39 +631,73 @@
     </bpmn2:process>
     <bpmndi:BPMNDiagram id="BPMNDiagram_1" name="Default Collaboration Diagram">
         <bpmndi:BPMNPlane bpmnElement="Collaboration_1" id="BPMNPlane_1">
-            <bpmndi:BPMNShape bpmnElement="EndEvent_2" id="BPMNShape_EndEvent_2">
-                <dc:Bounds height="32.0" width="32.0" x="522.0" y="124.0"/>
-            </bpmndi:BPMNShape>
-            <bpmndi:BPMNShape bpmnElement="StartEvent_2" id="BPMNShape_StartEvent_2">
-                <dc:Bounds height="32.0" width="32.0" x="270.0" y="124.0"/>
-            </bpmndi:BPMNShape>
-            <bpmndi:BPMNShape bpmnElement="CallActivity_5" id="BPMNShape_CallActivity_5">
-                <dc:Bounds height="60.0" width="100.0" x="362.0" y="110.0"/>
-            </bpmndi:BPMNShape>
             <bpmndi:BPMNShape bpmnElement="Participant_2" id="BPMNShape_Participant_2">
-                <dc:Bounds height="140.0" width="100.0" x="488.0" y="297.0"/>
+                <dc:Bounds height="140.0" width="100.0" x="836.0" y="65.0"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="SubProcess_8" id="BPMNShape_SubProcess_8">
+                <dc:Bounds height="140.0" width="484.0" x="270.0" y="187.0"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="StartEvent_9" id="BPMNShape_StartEvent_9">
+                <dc:Bounds height="32.0" width="32.0" x="303.0" y="233.0"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="EndEvent_12" id="BPMNShape_EndEvent_12">
+                <dc:Bounds height="32.0" width="32.0" x="649.0" y="233.0"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="CallActivity_14" id="BPMNShape_CallActivity_14">
+                <dc:Bounds height="60.0" width="100.0" x="366.0" y="219.0"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="ServiceTask_766" id="BPMNShape_ServiceTask_766">
+                <dc:Bounds height="60.0" width="100.0" x="513.0" y="219.0"/>
             </bpmndi:BPMNShape>
             <bpmndi:BPMNShape bpmnElement="Participant_1" id="BPMNShape_Participant_1">
                 <dc:Bounds height="140.0" width="100.0" x="50.0" y="70.0"/>
             </bpmndi:BPMNShape>
-            <bpmndi:BPMNShape bpmnElement="Participant_Process_1" id="BPMNShape_Participant_Process_1">
-                <dc:Bounds height="137.0" width="388.0" x="250.0" y="60.0"/>
+            <bpmndi:BPMNShape bpmnElement="Participant_767" id="BPMNShape_Participant_767">
+                <dc:Bounds height="140.0" width="100.0" x="513.0" y="380.0"/>
             </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="EndEvent_2" id="BPMNShape_EndEvent_2">
+                <dc:Bounds height="32.0" width="32.0" x="586.0" y="124.0"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="StartEvent_2" id="BPMNShape_StartEvent_2">
+                <dc:Bounds height="32.0" width="32.0" x="334.0" y="124.0"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="CallActivity_5" id="BPMNShape_CallActivity_5">
+                <dc:Bounds height="60.0" width="100.0" x="426.0" y="110.0"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="Participant_Process_1" id="BPMNShape_Participant_Process_1">
+                <dc:Bounds height="287.0" width="526.0" x="250.0" y="60.0"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge bpmnElement="SequenceFlow_769" id="BPMNEdge_SequenceFlow_769" sourceElement="BPMNShape_CallActivity_14" targetElement="BPMNShape_ServiceTask_766">
+                <di:waypoint x="416.0" xsi:type="dc:Point" y="249.0"/>
+                <di:waypoint x="521.0" xsi:type="dc:Point" y="249.0"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="SequenceFlow_13" id="BPMNEdge_SequenceFlow_13" sourceElement="BPMNShape_StartEvent_9" targetElement="BPMNShape_CallActivity_14">
+                <di:waypoint x="319.0" xsi:type="dc:Point" y="249.0"/>
+                <di:waypoint x="416.0" xsi:type="dc:Point" y="249.0"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="SequenceFlow_770" id="BPMNEdge_SequenceFlow_770" sourceElement="BPMNShape_ServiceTask_766" targetElement="BPMNShape_EndEvent_12">
+                <di:waypoint x="563.0" xsi:type="dc:Point" y="249.0"/>
+                <di:waypoint x="657.0" xsi:type="dc:Point" y="249.0"/>
+            </bpmndi:BPMNEdge>
             <bpmndi:BPMNEdge bpmnElement="SequenceFlow_6" id="BPMNEdge_SequenceFlow_6" sourceElement="BPMNShape_CallActivity_5" targetElement="BPMNShape_EndEvent_2">
-                <di:waypoint x="462.0" xsi:type="dc:Point" y="140.0"/>
-                <di:waypoint x="522.0" xsi:type="dc:Point" y="140.0"/>
+                <di:waypoint x="526.0" xsi:type="dc:Point" y="140.0"/>
+                <di:waypoint x="586.0" xsi:type="dc:Point" y="140.0"/>
             </bpmndi:BPMNEdge>
             <bpmndi:BPMNEdge bpmnElement="SequenceFlow_3" id="BPMNEdge_SequenceFlow_3" sourceElement="BPMNShape_StartEvent_2" targetElement="BPMNShape_CallActivity_5">
-                <di:waypoint x="302.0" xsi:type="dc:Point" y="140.0"/>
-                <di:waypoint x="362.0" xsi:type="dc:Point" y="140.0"/>
+                <di:waypoint x="366.0" xsi:type="dc:Point" y="140.0"/>
+                <di:waypoint x="426.0" xsi:type="dc:Point" y="140.0"/>
             </bpmndi:BPMNEdge>
-            <bpmndi:BPMNEdge bpmnElement="MessageFlow_7" id="BPMNEdge_MessageFlow_7" sourceElement="BPMNShape_EndEvent_2" targetElement="BPMNShape_Participant_2">
-                <di:waypoint x="538.0" xsi:type="dc:Point" y="140.0"/>
-                <di:waypoint x="538.0" xsi:type="dc:Point" y="367.0"/>
+            <bpmndi:BPMNEdge bpmnElement="MessageFlow_771" id="BPMNEdge_MessageFlow_771" sourceElement="BPMNShape_EndEvent_2" targetElement="BPMNShape_Participant_2">
+                <di:waypoint x="602.0" xsi:type="dc:Point" y="137.5"/>
+                <di:waypoint x="886.0" xsi:type="dc:Point" y="137.5"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="MessageFlow_768" id="BPMNEdge_MessageFlow_768" sourceElement="BPMNShape_ServiceTask_766" targetElement="BPMNShape_Participant_767">
+                <di:waypoint x="563.0" xsi:type="dc:Point" y="249.0"/>
+                <di:waypoint x="563.0" xsi:type="dc:Point" y="450.0"/>
             </bpmndi:BPMNEdge>
             <bpmndi:BPMNEdge bpmnElement="MessageFlow_4" id="BPMNEdge_MessageFlow_4" sourceElement="BPMNShape_Participant_1" targetElement="BPMNShape_StartEvent_2">
                 <di:waypoint x="100.0" xsi:type="dc:Point" y="140.0"/>
-                <di:waypoint x="286.0" xsi:type="dc:Point" y="140.0"/>
+                <di:waypoint x="350.0" xsi:type="dc:Point" y="140.0"/>
             </bpmndi:BPMNEdge>
         </bpmndi:BPMNPlane>
     </bpmndi:BPMNDiagram>
