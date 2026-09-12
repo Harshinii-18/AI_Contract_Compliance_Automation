@@ -90,7 +90,7 @@
                 </ifl:property>
             </bpmn2:extensionElements>
         </bpmn2:participant>
-        <bpmn2:participant id="Participant_Process_1" ifl:type="IntegrationProcess" name="Integration Process" processRef="Process_1">
+        <bpmn2:participant id="Participant_Process_1" ifl:type="IntegrationProcess" name="Document Ingestion" processRef="Process_1">
             <bpmn2:extensionElements/>
         </bpmn2:participant>
         <bpmn2:messageFlow id="MessageFlow_771" name="JMS" sourceRef="EndEvent_2" targetRef="Participant_2">
@@ -453,7 +453,7 @@ Exception Message: ${header.ExceptionMessage}</value>
             </bpmn2:extensionElements>
         </bpmn2:messageFlow>
     </bpmn2:collaboration>
-    <bpmn2:process id="Process_1" name="Integration Process">
+    <bpmn2:process id="Process_1" name="Document Ingestion">
         <bpmn2:extensionElements>
             <ifl:property>
                 <key>transactionTimeout</key>
