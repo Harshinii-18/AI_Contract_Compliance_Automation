@@ -101,7 +101,7 @@
         <bpmn2:participant id="Participant_Process_5288" ifl:type="IntegrationProcess" name="LIP_Poll_Document_AI" processRef="Process_5288">
             <bpmn2:extensionElements/>
         </bpmn2:participant>
-        <bpmn2:participant id="Participant_Process_1" ifl:type="IntegrationProcess" name="Integration Process" processRef="Process_1">
+        <bpmn2:participant id="Participant_Process_1" ifl:type="IntegrationProcess" name="Document Processing" processRef="Process_1">
             <bpmn2:extensionElements/>
         </bpmn2:participant>
         <bpmn2:messageFlow id="MessageFlow_5333" name="ProcessDirect" sourceRef="EndEvent_2" targetRef="Participant_5332">
@@ -676,7 +676,7 @@
                 <value>From Calling Process</value>
             </ifl:property>
         </bpmn2:extensionElements>
-        <bpmn2:callActivity id="CallActivity_5295" name="Delay">
+        <bpmn2:callActivity id="CallActivity_5295" name="Set Delay">
             <bpmn2:extensionElements>
                 <ifl:property>
                     <key>scriptFunction</key>
@@ -704,7 +704,7 @@
                 </ifl:property>
                 <ifl:property>
                     <key>script</key>
-                    <value>script3.groovy</value>
+                    <value>GS_Set Delay.groovy</value>
                 </ifl:property>
             </bpmn2:extensionElements>
             <bpmn2:incoming>SequenceFlow_5291</bpmn2:incoming>
@@ -738,7 +738,7 @@
                 </ifl:property>
                 <ifl:property>
                     <key>script</key>
-                    <value>script4.groovy</value>
+                    <value>GS_Get Doc status.groovy</value>
                 </ifl:property>
             </bpmn2:extensionElements>
             <bpmn2:incoming>SequenceFlow_5299</bpmn2:incoming>
@@ -793,7 +793,7 @@
         <bpmn2:sequenceFlow id="SequenceFlow_5299" sourceRef="ServiceTask_5298" targetRef="CallActivity_5306"/>
         <bpmn2:sequenceFlow id="SequenceFlow_5291" sourceRef="StartEvent_5289" targetRef="CallActivity_5295"/>
     </bpmn2:process>
-    <bpmn2:process id="Process_1" name="Integration Process">
+    <bpmn2:process id="Process_1" name="Document Processing">
         <bpmn2:extensionElements>
             <ifl:property>
                 <key>transactionTimeout</key>
@@ -812,7 +812,7 @@
                 <value>Not Required</value>
             </ifl:property>
         </bpmn2:extensionElements>
-        <bpmn2:callActivity id="CallActivity_5314" name="Normalized payload">
+        <bpmn2:callActivity id="CallActivity_5314" name="Normalize payload">
             <bpmn2:extensionElements>
                 <ifl:property>
                     <key>scriptFunction</key>
@@ -840,7 +840,7 @@
                 </ifl:property>
                 <ifl:property>
                     <key>script</key>
-                    <value>script5.groovy</value>
+                    <value>GS_Normalize payload.groovy</value>
                 </ifl:property>
             </bpmn2:extensionElements>
             <bpmn2:incoming>SequenceFlow_5293</bpmn2:incoming>
@@ -874,7 +874,7 @@
                 </ifl:property>
                 <ifl:property>
                     <key>script</key>
-                    <value>v2/script1.groovy</value>
+                    <value>v2/GS_Convert to Multipart format.groovy</value>
                 </ifl:property>
             </bpmn2:extensionElements>
             <bpmn2:incoming>SequenceFlow_5347</bpmn2:incoming>
@@ -908,7 +908,7 @@
                 </ifl:property>
                 <ifl:property>
                     <key>script</key>
-                    <value>script6.groovy</value>
+                    <value>GS_Data Validation.groovy</value>
                 </ifl:property>
             </bpmn2:extensionElements>
             <bpmn2:incoming>SequenceFlow_5344</bpmn2:incoming>
@@ -942,7 +942,7 @@
                 </ifl:property>
                 <ifl:property>
                     <key>script</key>
-                    <value>script2.groovy</value>
+                    <value>GS_Get DocID and DocStatus.groovy</value>
                 </ifl:property>
             </bpmn2:extensionElements>
             <bpmn2:incoming>SequenceFlow_6</bpmn2:incoming>
@@ -981,8 +981,8 @@
             </bpmn2:extensionElements>
             <bpmn2:incoming>SequenceFlow_5284</bpmn2:incoming>
             <bpmn2:outgoing>SequenceFlow_5293</bpmn2:outgoing>
-            <bpmn2:standardLoopCharacteristics id="StandardLoopCharacteristics_1789206606918" loopMaximum="10">
-                <bpmn2:loopCondition id="FormalExpression_1789206606918" xsi:type="bpmn2:tFormalExpression">${property.docStatus} != 'DONE'</bpmn2:loopCondition>
+            <bpmn2:standardLoopCharacteristics id="StandardLoopCharacteristics_1789220378482" loopMaximum="10">
+                <bpmn2:loopCondition id="FormalExpression_1789220378482" xsi:type="bpmn2:tFormalExpression">${property.docStatus} != 'DONE'</bpmn2:loopCondition>
             </bpmn2:standardLoopCharacteristics>
         </bpmn2:callActivity>
         <bpmn2:serviceTask id="ServiceTask_5" name="Request Reply">
@@ -1078,7 +1078,7 @@
                     <value>NonXML</value>
                 </ifl:property>
             </bpmn2:extensionElements>
-            <bpmn2:conditionExpression id="FormalExpression_SequenceFlow_5320_1789206676450" xsi:type="bpmn2:tFormalExpression">${property.isValid} = 'true'</bpmn2:conditionExpression>
+            <bpmn2:conditionExpression id="FormalExpression_SequenceFlow_5320_1789220845365" xsi:type="bpmn2:tFormalExpression">${property.isValid} = 'true'</bpmn2:conditionExpression>
         </bpmn2:sequenceFlow>
         <bpmn2:sequenceFlow id="SequenceFlow_5323" name="Invalid data" sourceRef="ExclusiveGateway_5319" targetRef="EndEvent_5322">
             <bpmn2:extensionElements>
