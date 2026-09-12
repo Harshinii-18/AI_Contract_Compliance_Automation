@@ -90,7 +90,7 @@
                 </ifl:property>
             </bpmn2:extensionElements>
         </bpmn2:participant>
-        <bpmn2:participant id="Participant_Process_1" ifl:type="IntegrationProcess" name="Integration Process" processRef="Process_1">
+        <bpmn2:participant id="Participant_Process_1" ifl:type="IntegrationProcess" name="Contract_Compliance" processRef="Process_1">
             <bpmn2:extensionElements/>
         </bpmn2:participant>
         <bpmn2:messageFlow id="MessageFlow_45" name="ProcessDirect" sourceRef="Participant_1" targetRef="StartEvent_44">
@@ -213,7 +213,7 @@
                 </ifl:property>
                 <ifl:property>
                     <key>system</key>
-                    <value>Receiver1</value>
+                    <value>SAPHANACloud</value>
                 </ifl:property>
                 <ifl:property>
                     <key>batchMode</key>
@@ -450,7 +450,7 @@
             </bpmn2:extensionElements>
         </bpmn2:messageFlow>
     </bpmn2:collaboration>
-    <bpmn2:process id="Process_1" name="Integration Process">
+    <bpmn2:process id="Process_1" name="Contract_Compliance">
         <bpmn2:extensionElements>
             <ifl:property>
                 <key>transactionTimeout</key>
@@ -497,7 +497,7 @@
                 </ifl:property>
                 <ifl:property>
                     <key>script</key>
-                    <value>script1.groovy</value>
+                    <value>GS_Get API Key.groovy</value>
                 </ifl:property>
             </bpmn2:extensionElements>
             <bpmn2:incoming>SequenceFlow_78</bpmn2:incoming>
@@ -531,7 +531,7 @@
                 </ifl:property>
                 <ifl:property>
                     <key>script</key>
-                    <value>script6.groovy</value>
+                    <value>GS_Build RAG Policy Context.groovy</value>
                 </ifl:property>
             </bpmn2:extensionElements>
             <bpmn2:incoming>SequenceFlow_75</bpmn2:incoming>
@@ -565,7 +565,7 @@
                 </ifl:property>
                 <ifl:property>
                     <key>script</key>
-                    <value>script5.groovy</value>
+                    <value>GS_Build HANA RAG SQL.groovy</value>
                 </ifl:property>
             </bpmn2:extensionElements>
             <bpmn2:incoming>SequenceFlow_65</bpmn2:incoming>
@@ -599,7 +599,7 @@
                 </ifl:property>
                 <ifl:property>
                     <key>script</key>
-                    <value>script3.groovy</value>
+                    <value>GS_Normalize AI response.groovy</value>
                 </ifl:property>
             </bpmn2:extensionElements>
             <bpmn2:incoming>SequenceFlow_27</bpmn2:incoming>
@@ -633,7 +633,7 @@
                 </ifl:property>
                 <ifl:property>
                     <key>script</key>
-                    <value>script4.groovy</value>
+                    <value>GS_Build Focused RAG Queries.groovy</value>
                 </ifl:property>
             </bpmn2:extensionElements>
             <bpmn2:incoming>SequenceFlow_52</bpmn2:incoming>
@@ -667,91 +667,12 @@
                 </ifl:property>
                 <ifl:property>
                     <key>script</key>
-                    <value>script2.groovy</value>
+                    <value>GS_Build RAG Prompt.groovy</value>
                 </ifl:property>
             </bpmn2:extensionElements>
             <bpmn2:incoming>SequenceFlow_11</bpmn2:incoming>
             <bpmn2:outgoing>SequenceFlow_17</bpmn2:outgoing>
         </bpmn2:callActivity>
-        <bpmn2:serviceTask id="ServiceTask_24" name="Request Reply">
-            <bpmn2:extensionElements>
-                <ifl:property>
-                    <key>componentVersion</key>
-                    <value>1.0</value>
-                </ifl:property>
-                <ifl:property>
-                    <key>activityType</key>
-                    <value>ExternalCall</value>
-                </ifl:property>
-                <ifl:property>
-                    <key>cmdVariantUri</key>
-                    <value>ctype::FlowstepVariant/cname::ExternalCall/version::1.0.4</value>
-                </ifl:property>
-            </bpmn2:extensionElements>
-            <bpmn2:incoming>SequenceFlow_17</bpmn2:incoming>
-            <bpmn2:outgoing>SequenceFlow_27</bpmn2:outgoing>
-        </bpmn2:serviceTask>
-        <bpmn2:serviceTask id="ServiceTask_69" name="Request Reply">
-            <bpmn2:extensionElements>
-                <ifl:property>
-                    <key>componentVersion</key>
-                    <value>1.0</value>
-                </ifl:property>
-                <ifl:property>
-                    <key>activityType</key>
-                    <value>ExternalCall</value>
-                </ifl:property>
-                <ifl:property>
-                    <key>cmdVariantUri</key>
-                    <value>ctype::FlowstepVariant/cname::ExternalCall/version::1.0.4</value>
-                </ifl:property>
-            </bpmn2:extensionElements>
-            <bpmn2:incoming>SequenceFlow_68</bpmn2:incoming>
-            <bpmn2:outgoing>SequenceFlow_70</bpmn2:outgoing>
-        </bpmn2:serviceTask>
-        <bpmn2:endEvent id="EndEvent_35" name="Error End">
-            <bpmn2:incoming>SequenceFlow_36</bpmn2:incoming>
-            <bpmn2:errorEventDefinition>
-                <bpmn2:extensionElements>
-                    <ifl:property>
-                        <key>cmdVariantUri</key>
-                        <value>ctype::FlowstepVariant/cname::ErrorEndEvent</value>
-                    </ifl:property>
-                    <ifl:property>
-                        <key>activityType</key>
-                        <value>EndErrorEvent</value>
-                    </ifl:property>
-                </bpmn2:extensionElements>
-            </bpmn2:errorEventDefinition>
-        </bpmn2:endEvent>
-        <bpmn2:endEvent id="EndEvent_2" name="End">
-            <bpmn2:extensionElements>
-                <ifl:property>
-                    <key>componentVersion</key>
-                    <value>1.1</value>
-                </ifl:property>
-                <ifl:property>
-                    <key>cmdVariantUri</key>
-                    <value>ctype::FlowstepVariant/cname::MessageEndEvent/version::1.1.0</value>
-                </ifl:property>
-            </bpmn2:extensionElements>
-            <bpmn2:incoming>SequenceFlow_30</bpmn2:incoming>
-            <bpmn2:messageEventDefinition/>
-        </bpmn2:endEvent>
-        <bpmn2:endEvent id="EndEvent_32" name="End">
-            <bpmn2:extensionElements>
-                <ifl:property>
-                    <key>componentVersion</key>
-                    <value>1.1</value>
-                </ifl:property>
-                <ifl:property>
-                    <key>cmdVariantUri</key>
-                    <value>ctype::FlowstepVariant/cname::MessageEndEvent/version::1.1.0</value>
-                </ifl:property>
-            </bpmn2:extensionElements>
-            <bpmn2:incoming>SequenceFlow_33</bpmn2:incoming>
-            <bpmn2:messageEventDefinition/>
-        </bpmn2:endEvent>
         <bpmn2:callActivity id="CallActivity_49" name="Store Normalized  PO">
             <bpmn2:extensionElements>
                 <ifl:property>
@@ -786,40 +707,6 @@
             <bpmn2:incoming>SequenceFlow_46</bpmn2:incoming>
             <bpmn2:outgoing>SequenceFlow_52</bpmn2:outgoing>
         </bpmn2:callActivity>
-        <bpmn2:exclusiveGateway default="SequenceFlow_36" id="ExclusiveGateway_29" name="RT_AI_recommend">
-            <bpmn2:extensionElements>
-                <ifl:property>
-                    <key>componentVersion</key>
-                    <value>1.2</value>
-                </ifl:property>
-                <ifl:property>
-                    <key>activityType</key>
-                    <value>ExclusiveGateway</value>
-                </ifl:property>
-                <ifl:property>
-                    <key>cmdVariantUri</key>
-                    <value>ctype::FlowstepVariant/cname::ExclusiveGateway/version::1.2.0</value>
-                </ifl:property>
-                <ifl:property>
-                    <key>throwException</key>
-                    <value>false</value>
-                </ifl:property>
-            </bpmn2:extensionElements>
-            <bpmn2:incoming>SequenceFlow_28</bpmn2:incoming>
-            <bpmn2:outgoing>SequenceFlow_30</bpmn2:outgoing>
-            <bpmn2:outgoing>SequenceFlow_33</bpmn2:outgoing>
-            <bpmn2:outgoing>SequenceFlow_36</bpmn2:outgoing>
-        </bpmn2:exclusiveGateway>
-        <bpmn2:startEvent id="StartEvent_44" name="Start">
-            <bpmn2:extensionElements>
-                <ifl:property>
-                    <key>cmdVariantUri</key>
-                    <value>ctype::FlowstepVariant/cname::MessageStartEvent</value>
-                </ifl:property>
-            </bpmn2:extensionElements>
-            <bpmn2:outgoing>SequenceFlow_46</bpmn2:outgoing>
-            <bpmn2:messageEventDefinition/>
-        </bpmn2:startEvent>
         <bpmn2:callActivity id="CallActivity_74" name="Gather">
             <bpmn2:extensionElements>
                 <ifl:property>
@@ -954,6 +841,119 @@
             <bpmn2:incoming>SequenceFlow_64</bpmn2:incoming>
             <bpmn2:outgoing>SequenceFlow_65</bpmn2:outgoing>
         </bpmn2:callActivity>
+        <bpmn2:serviceTask id="ServiceTask_24" name="Request Reply">
+            <bpmn2:extensionElements>
+                <ifl:property>
+                    <key>componentVersion</key>
+                    <value>1.0</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>activityType</key>
+                    <value>ExternalCall</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>cmdVariantUri</key>
+                    <value>ctype::FlowstepVariant/cname::ExternalCall/version::1.0.4</value>
+                </ifl:property>
+            </bpmn2:extensionElements>
+            <bpmn2:incoming>SequenceFlow_17</bpmn2:incoming>
+            <bpmn2:outgoing>SequenceFlow_27</bpmn2:outgoing>
+        </bpmn2:serviceTask>
+        <bpmn2:serviceTask id="ServiceTask_69" name="Request Reply">
+            <bpmn2:extensionElements>
+                <ifl:property>
+                    <key>componentVersion</key>
+                    <value>1.0</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>activityType</key>
+                    <value>ExternalCall</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>cmdVariantUri</key>
+                    <value>ctype::FlowstepVariant/cname::ExternalCall/version::1.0.4</value>
+                </ifl:property>
+            </bpmn2:extensionElements>
+            <bpmn2:incoming>SequenceFlow_68</bpmn2:incoming>
+            <bpmn2:outgoing>SequenceFlow_70</bpmn2:outgoing>
+        </bpmn2:serviceTask>
+        <bpmn2:endEvent id="EndEvent_35" name="Error End">
+            <bpmn2:incoming>SequenceFlow_36</bpmn2:incoming>
+            <bpmn2:errorEventDefinition>
+                <bpmn2:extensionElements>
+                    <ifl:property>
+                        <key>cmdVariantUri</key>
+                        <value>ctype::FlowstepVariant/cname::ErrorEndEvent</value>
+                    </ifl:property>
+                    <ifl:property>
+                        <key>activityType</key>
+                        <value>EndErrorEvent</value>
+                    </ifl:property>
+                </bpmn2:extensionElements>
+            </bpmn2:errorEventDefinition>
+        </bpmn2:endEvent>
+        <bpmn2:endEvent id="EndEvent_2" name="End">
+            <bpmn2:extensionElements>
+                <ifl:property>
+                    <key>componentVersion</key>
+                    <value>1.1</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>cmdVariantUri</key>
+                    <value>ctype::FlowstepVariant/cname::MessageEndEvent/version::1.1.0</value>
+                </ifl:property>
+            </bpmn2:extensionElements>
+            <bpmn2:incoming>SequenceFlow_30</bpmn2:incoming>
+            <bpmn2:messageEventDefinition/>
+        </bpmn2:endEvent>
+        <bpmn2:endEvent id="EndEvent_32" name="End">
+            <bpmn2:extensionElements>
+                <ifl:property>
+                    <key>componentVersion</key>
+                    <value>1.1</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>cmdVariantUri</key>
+                    <value>ctype::FlowstepVariant/cname::MessageEndEvent/version::1.1.0</value>
+                </ifl:property>
+            </bpmn2:extensionElements>
+            <bpmn2:incoming>SequenceFlow_33</bpmn2:incoming>
+            <bpmn2:messageEventDefinition/>
+        </bpmn2:endEvent>
+        <bpmn2:exclusiveGateway default="SequenceFlow_36" id="ExclusiveGateway_29" name="RT_AI_recommend">
+            <bpmn2:extensionElements>
+                <ifl:property>
+                    <key>componentVersion</key>
+                    <value>1.2</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>activityType</key>
+                    <value>ExclusiveGateway</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>cmdVariantUri</key>
+                    <value>ctype::FlowstepVariant/cname::ExclusiveGateway/version::1.2.0</value>
+                </ifl:property>
+                <ifl:property>
+                    <key>throwException</key>
+                    <value>false</value>
+                </ifl:property>
+            </bpmn2:extensionElements>
+            <bpmn2:incoming>SequenceFlow_28</bpmn2:incoming>
+            <bpmn2:outgoing>SequenceFlow_30</bpmn2:outgoing>
+            <bpmn2:outgoing>SequenceFlow_33</bpmn2:outgoing>
+            <bpmn2:outgoing>SequenceFlow_36</bpmn2:outgoing>
+        </bpmn2:exclusiveGateway>
+        <bpmn2:startEvent id="StartEvent_44" name="Start">
+            <bpmn2:extensionElements>
+                <ifl:property>
+                    <key>cmdVariantUri</key>
+                    <value>ctype::FlowstepVariant/cname::MessageStartEvent</value>
+                </ifl:property>
+            </bpmn2:extensionElements>
+            <bpmn2:outgoing>SequenceFlow_46</bpmn2:outgoing>
+            <bpmn2:messageEventDefinition/>
+        </bpmn2:startEvent>
         <bpmn2:sequenceFlow id="SequenceFlow_11" sourceRef="CallActivity_10" targetRef="CallActivity_13"/>
         <bpmn2:sequenceFlow id="SequenceFlow_78" sourceRef="CallActivity_76" targetRef="CallActivity_10"/>
         <bpmn2:sequenceFlow id="SequenceFlow_68" sourceRef="CallActivity_53" targetRef="ServiceTask_69"/>
@@ -969,30 +969,14 @@
                     <key>expressionType</key>
                     <value>NonXML</value>
                 </ifl:property>
-                <ifl:property>
-                    <key>componentVersion</key>
-                    <value>1.0</value>
-                </ifl:property>
-                <ifl:property>
-                    <key>cmdVariantUri</key>
-                    <value>ctype::FlowstepVariant/cname::GatewayRoute/version::1.0.0</value>
-                </ifl:property>
             </bpmn2:extensionElements>
-            <bpmn2:conditionExpression id="FormalExpression_SequenceFlow_33_1789205415863" xsi:type="bpmn2:tFormalExpression">${property.aiRecommendation} = 'HUMAN_REVIEW'</bpmn2:conditionExpression>
+            <bpmn2:conditionExpression id="FormalExpression_SequenceFlow_33_1789220588944" xsi:type="bpmn2:tFormalExpression">${property.aiRecommendation} = 'HUMAN_REVIEW'</bpmn2:conditionExpression>
         </bpmn2:sequenceFlow>
         <bpmn2:sequenceFlow id="SequenceFlow_36" name="Unsupported Route" sourceRef="ExclusiveGateway_29" targetRef="EndEvent_35">
             <bpmn2:extensionElements>
                 <ifl:property>
                     <key>expressionType</key>
                     <value>XML</value>
-                </ifl:property>
-                <ifl:property>
-                    <key>componentVersion</key>
-                    <value>1.0</value>
-                </ifl:property>
-                <ifl:property>
-                    <key>cmdVariantUri</key>
-                    <value>ctype::FlowstepVariant/cname::GatewayRoute/version::1.0.0</value>
                 </ifl:property>
             </bpmn2:extensionElements>
         </bpmn2:sequenceFlow>
@@ -1002,16 +986,8 @@
                     <key>expressionType</key>
                     <value>NonXML</value>
                 </ifl:property>
-                <ifl:property>
-                    <key>componentVersion</key>
-                    <value>1.0</value>
-                </ifl:property>
-                <ifl:property>
-                    <key>cmdVariantUri</key>
-                    <value>ctype::FlowstepVariant/cname::GatewayRoute/version::1.0.0</value>
-                </ifl:property>
             </bpmn2:extensionElements>
-            <bpmn2:conditionExpression id="FormalExpression_SequenceFlow_30_1789205415863" xsi:type="bpmn2:tFormalExpression">${property.aiRecommendation} = 'PROCESS_PO'</bpmn2:conditionExpression>
+            <bpmn2:conditionExpression id="FormalExpression_SequenceFlow_30_1789220588944" xsi:type="bpmn2:tFormalExpression">${property.aiRecommendation} = 'PROCESS_PO'</bpmn2:conditionExpression>
         </bpmn2:sequenceFlow>
         <bpmn2:sequenceFlow id="SequenceFlow_46" sourceRef="StartEvent_44" targetRef="CallActivity_49"/>
         <bpmn2:sequenceFlow id="SequenceFlow_75" sourceRef="CallActivity_74" targetRef="CallActivity_76"/>
