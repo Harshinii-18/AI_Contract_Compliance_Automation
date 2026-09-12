@@ -16,6 +16,7 @@ def Message processData(Message message) {
 
     // 1. Required Header Fields & Validity (Checking for null or empty/blank string)
     if (!header.documentNumber || header.documentNumber.toString().trim().isEmpty()) {
+
     // =========================================================
     // 1. REQUIRED HEADER FIELDS
     // =========================================================
@@ -56,11 +57,26 @@ def Message processData(Message message) {
 
     // =========================================================
     // 2. CURRENCY VALIDATION - P003
+    // 2. LINE ITEMS VALIDATION
+    // =========================================================
+
+    if (!lineItems || lineItems.isEmpty()) {
+
+        errors.add(
+            "Missing Line Items: At least one line item is required"
+        )
+
+    }
+
+
+    // =========================================================
+    // 3. CURRENCY VALIDATION - P003
     // =========================================================
 
     if (!isBlank(header.currency)) {
 
         if (header.currency.toString().trim().toUpperCase() != "USD") {
+
             errors.add(
                 "P003 Currency Violation: Currency must be USD (Found: ${header.currency})"
             )
@@ -70,42 +86,64 @@ def Message processData(Message message) {
 
     // =========================================================
     // 3. DATE VALIDATION - P002
+    // 4. DATE VALIDATION - P002
     // =========================================================
 
     LocalDate poDate = null
     LocalDate deliveryDate = null
 
     if (!isBlank(header.documentDate)) {
+
         try {
             poDate = LocalDate.parse(header.documentDate.toString().trim())
+
+            poDate = LocalDate.parse(
+                header.documentDate.toString().trim()
+            )
+
         } catch (Exception e) {
+
             errors.add(
                 "Invalid PO Date: ${header.documentDate}. Expected format: YYYY-MM-DD"
             )
         }
     }
 
+
     if (!isBlank(header.deliveryDate)) {
+
         try {
             deliveryDate = LocalDate.parse(header.deliveryDate.toString().trim())
+
+            deliveryDate = LocalDate.parse(
+                header.deliveryDate.toString().trim()
+            )
+
         } catch (Exception e) {
+
             errors.add(
                 "Invalid Delivery Date: ${header.deliveryDate}. Expected format: YYYY-MM-DD"
             )
         }
     }
 
+
     if (poDate != null && deliveryDate != null) {
 
         if (deliveryDate.isBefore(poDate)) {
+
             errors.add(
                 "P002 Delivery Date Violation: Delivery date ${deliveryDate} is before PO date ${poDate}"
             )
+
     } else {
 
             long leadTime = ChronoUnit.DAYS.between(poDate, deliveryDate)
+            long leadTime =
+                ChronoUnit.DAYS.between(poDate, deliveryDate)
 
             if (leadTime > 30) {
+
                 errors.add(
                     "P002 Delivery Lead Time Violation: Delivery is ${leadTime} days after PO date. Maximum allowed is 30 days"
                 )
@@ -116,25 +154,34 @@ def Message processData(Message message) {
 
     // =========================================================
     // 4. PAYMENT TERMS VALIDATION - P001
+    // 5. PAYMENT TERMS VALIDATION - P001
     // =========================================================
 
     if (!isBlank(header.paymentTerms)) {
 
         String paymentTerms = header.paymentTerms.toString().trim()
+        String paymentTerms =
+            header.paymentTerms.toString().trim()
 
         def matcher = paymentTerms =~ /(?i)(\d+)\s*(?:days?|d)\b/
+        def matcher =
+            paymentTerms =~ /(?i)(\d+)\s*(?:days?|d)\b/
 
         if (matcher.find()) {
 
             int paymentDays = matcher.group(1).toInteger()
+            int paymentDays =
+                matcher.group(1).toInteger()
 
             if (paymentDays > 45) {
+
                 errors.add(
                     "P001 Payment Terms Violation: Payment terms are Net ${paymentDays} days. Maximum allowed is 45 days"
                 )
             }
 
         } else {
+
             errors.add(
                 "Invalid Payment Terms: Unable to determine payment days from '${paymentTerms}'"
             )
@@ -144,6 +191,7 @@ def Message processData(Message message) {
 
     // =========================================================
     // 5. SHIPPING TERMS VALIDATION - P004
+    // 6. SHIPPING TERMS VALIDATION - P004
     // =========================================================
 
     if (!isBlank(header.shippingTerms)) {
@@ -158,6 +206,7 @@ def Message processData(Message message) {
         ]
 
         if (!allowedShippingTerms.contains(shippingTerms)) {
+
             errors.add(
                 "P004 Shipping Terms Violation: '${header.shippingTerms}' is not allowed. Allowed values: FOB Destination, CIF, DAP"
             )
@@ -167,6 +216,7 @@ def Message processData(Message message) {
 
     // =========================================================
     // 6. LINE ITEM VALIDATION
+    // 7. LINE ITEM VALIDATION - P006 / P007
     // =========================================================
 
     if (!lineItems || lineItems.isEmpty()) {
@@ -176,6 +226,7 @@ def Message processData(Message message) {
         )
 
     } else {
+    if (lineItems && !lineItems.isEmpty()) {
 
         lineItems.eachWithIndex { item, index ->
 
@@ -192,9 +243,12 @@ def Message processData(Message message) {
 
             // -------------------------------------------------
             // P006 - Quantity > 0
+            // Quantity validation
             // -------------------------------------------------
 
             if (item.quantity == null || !isValidNumber(item.quantity)) {
+            if (item.quantity == null ||
+                !isValidNumber(item.quantity)) {
 
                 errors.add(
                     "Line Item ${itemNo}: Invalid Quantity (Found: ${item.quantity})"
@@ -212,9 +266,12 @@ def Message processData(Message message) {
 
             // -------------------------------------------------
             // Unit Price > 0
+            // Unit Price validation
             // -------------------------------------------------
 
             if (item.unitPrice == null || !isValidNumber(item.unitPrice)) {
+            if (item.unitPrice == null ||
+                !isValidNumber(item.unitPrice)) {
 
                 errors.add(
                     "Line Item ${itemNo}: Invalid Unit Price (Found: ${item.unitPrice})"
@@ -232,9 +289,12 @@ def Message processData(Message message) {
 
             // -------------------------------------------------
             // Line Amount > 0
+            // Net Amount validation
             // -------------------------------------------------
 
             if (item.netAmount == null || !isValidNumber(item.netAmount)) {
+            if (item.netAmount == null ||
+                !isValidNumber(item.netAmount)) {
 
                 errors.add(
                     "Line Item ${itemNo}: Invalid Net Amount (Found: ${item.netAmount})"
@@ -258,8 +318,13 @@ def Message processData(Message message) {
             // -------------------------------------------------
 
             if (qty > 0 && price > 0 && lineTotal > 0) {
+            if (qty > 0 &&
+                price > 0 &&
+                lineTotal > 0) {
 
                 double calculatedTotal = qty * price
+                double calculatedTotal =
+                    qty * price
 
                 if (Math.abs(calculatedTotal - lineTotal) > 0.01) {
 
@@ -275,9 +340,12 @@ def Message processData(Message message) {
 
     // =========================================================
     // 7. PO NET AMOUNT VALIDATION - P008
+    // 8. PO NET AMOUNT VALIDATION - P008
     // =========================================================
 
     if (header.netAmount == null || !isValidNumber(header.netAmount)) {
+    if (header.netAmount == null ||
+        !isValidNumber(header.netAmount)) {
 
         errors.add(
             "Missing or Invalid PO Net Amount"
@@ -286,11 +354,16 @@ def Message processData(Message message) {
     } else if (lineItems && !lineItems.isEmpty()) {
 
         double poNetAmount = parseDouble(header.netAmount)
+        double poNetAmount =
+            parseDouble(header.netAmount)
 
         double lineItemsTotal = 0.0
 
         lineItems.each { item ->
             lineItemsTotal += parseDouble(item.netAmount)
+
+            lineItemsTotal +=
+                parseDouble(item.netAmount)
         }
 
         if (Math.abs(lineItemsTotal - poNetAmount) > 0.01) {
@@ -304,9 +377,12 @@ def Message processData(Message message) {
 
     // =========================================================
     // 8. FINAL VALIDATION RESULT
+    // 9. FINAL VALIDATION RESULT
     // =========================================================
 
     boolean validBool = errors.isEmpty()
+    boolean validBool =
+        errors.isEmpty()
     
     message.setProperty("isValid", validBool.toString())
     message.setProperty("validationErrors", errors.join(" | "))
@@ -324,6 +400,7 @@ def Message processData(Message message) {
 
     // =========================================================
     // 9. APPEND VALIDATION RESULT TO JSON
+    // 10. APPEND VALIDATION RESULT TO JSON
     // =========================================================
 
     json.validation = [
@@ -333,6 +410,11 @@ def Message processData(Message message) {
 
     message.setBody(JsonOutput.prettyPrint(JsonOutput.toJson(json)))
     message.setHeader("Content-Type", "application/json")
+
+    // =========================================================
+    // 11. SET MESSAGE BODY
+    // =========================================================
+
     message.setBody(
         JsonOutput.prettyPrint(
             JsonOutput.toJson(json)
@@ -367,8 +449,15 @@ def boolean isValidNumber(value) {
 
     try {
         Double.parseDouble(value.toString().trim())
+
+        Double.parseDouble(
+            value.toString().trim()
+        )
+
         return true
+
     } catch (Exception e) {
+
         return false
     }
 }
