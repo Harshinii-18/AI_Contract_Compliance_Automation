@@ -1,0 +1,93 @@
+{
+  {
+    "policy_id": "P001",
+    "category_code": "PAYMENT",
+    "policy_name": "PAYMENT TERMS",
+    "policy_text": "Payment terms must not exceed 45 days."
+  },
+  {
+    "policy_id": "P002",
+    "category_code": "DELIVERY",
+    "policy_name": "DELIVERY LEAD TIME",
+    "policy_text": "The delivery date must be no more than 30 calendar days after the purchase order date."
+  },
+  {
+    "policy_id": "P003",
+    "category_code": "CURRENCY",
+    "policy_name": "CURRENCY",
+    "policy_text": "Purchase orders must use USD."
+  },
+  {
+    "policy_id": "P004",
+    "category_code": "SHIPPING",
+    "policy_name": "SHIPPING TERMS",
+    "policy_text": "Allowed shipping terms: FOB Destination, CIF, DAP."
+  },
+  {
+    "policy_id": "P005",
+    "category_code": "APPROVAL",
+    "policy_name": "PURCHASE ORDER APPROVAL",
+    "policy_type": "APPROVAL REQUIREMENT",
+    "policy_text": "Purchase orders with a gross amount greater than USD 10,000 require human review. This is an approval requirement and is not considered a compliance violation."
+  },
+  {
+    "policy_id": "P006",
+    "category_code": "QUANTITY",
+    "policy_name": "LINE ITEM QUANTITY",
+    "policy_text": "Quantity must be greater than zero."
+  },
+  {
+    "policy_id": "P007",
+    "category_code": "LINE_AMOUNT",
+    "policy_name": "LINE ITEM AMOUNT",
+    "policy_text": "For each line item, quantity multiplied by unit price must equal line-item net amount, with a tolerance of USD 0.01."
+  },
+  {
+    "policy_id": "P008",
+    "category_code": "PO_TOTAL",
+    "policy_name": "PURCHASE ORDER TOTAL",
+    "policy_text": "The sum of all line-item net amounts must equal the PO net amount, with a tolerance of USD 0.01."
+  },
+  {
+    "policy_id": "P009",
+    "category_code": "PAYMENT",
+    "policy_name": "NEW SUPPLIER SETTLEMENT",
+    "policy_text": "Newly onboarded suppliers, defined as suppliers with less than 12 months active status, must be assigned maximum Net 30 payment terms."
+  },
+  {
+    "policy_id": "P010",
+    "category_code": "PAYMENT",
+    "policy_name": "ADVANCE PAYMENT RESTRICTIONS",
+    "policy_text": "Any agreement requiring advance payment or pre-payment requires explicit approval from the Procurement Director."
+  },
+  {
+    "policy_id": "P011",
+    "category_code": "DELIVERY",
+    "policy_name": "EXPEDITED DELIVERY APPROVAL",
+    "policy_text": "Delivery requests shorter than 7 calendar days require an expedited shipping approval code."
+  },
+  {
+    "policy_id": "P012",
+    "category_code": "CURRENCY",
+    "policy_name": "FOREIGN CURRENCY THRESHOLD",
+    "policy_text": "Non-USD purchase orders exceeding USD 50,000 equivalent valuation require Treasury hedging verification."
+  },
+  {
+    "policy_id": "P013",
+    "category_code": "SHIPPING",
+    "policy_name": "INTERNATIONAL SHIPPING DOCUMENTATION",
+    "policy_text": "Cross-border international shipments must specify Customs Clearance Responsibility in the purchase order header notes."
+  },
+  {
+    "policy_id": "P014",
+    "category_code": "APPROVAL",
+    "policy_name": "EXECUTIVE APPROVAL",
+    "policy_text": "Purchase orders exceeding USD 50,000 require Vice President signature prior to release."
+  },
+  {
+    "policy_id": "P015",
+    "category_code": "QUANTITY",
+    "policy_name": "MINIMUM ORDER QUANTITY",
+    "policy_text": "Category A raw materials require a minimum order quantity of 100 units per line item."
+  }
+}
