@@ -1,0 +1,47 @@
+{
+  "header": {
+    "documentNumber": "PO-2026-88492",
+    "documentDate": "2026-08-17",
+    "deliveryDate": "2026-09-01",
+    "senderName": "Acme Corporation",
+    "senderId": "BUY-9901",
+    "receiverId": "SUP-54321",
+    "paymentTerms": "Net 30 Days",
+    "shippingTerms": "FOB Destination",
+    "currency": "USD",
+    "netAmount": 7500.0,
+    "grossAmount": 8100.0,
+    "shipTo": {
+      "name": "Acme Logistics Hub",
+      "address": "456 Warehouse Way, Bldg B No: Warehouse Way / 456 State: Industrial / San Jose / CA 95112 / US",
+      "city": "San Jose",
+      "state": "CA",
+      "postalCode": "95112",
+      "country": "US",
+      "phone": "+15550149922",
+      "email": "receiving@acmecorp.com"
+    }
+  },
+  "lineItems": [
+    {
+      "itemNumber": "10",
+      "description": "Industrial Sensor Module A",
+      "supplierMaterialNumber": "SUP-MOD-01",
+      "customerMaterialNumber": "CUST-MOD-01",
+      "quantity": 50.0,
+      "unitOfMeasure": "EA",
+      "unitPrice": 120.0,
+      "netAmount": 6000.0
+    },
+    {
+      "itemNumber": "20",
+      "description": "High-Speed Interface Cable (2m)",
+      "supplierMaterialNumber": "SUP-CAB-05",
+      "customerMaterialNumber": "CUST-CAB-05",
+      "quantity": 100.0,
+      "unitOfMeasure": "EA",
+      "unitPrice": 15.0,
+      "netAmount": 1500.0
+    }
+  ]
+}
